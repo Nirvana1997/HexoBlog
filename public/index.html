@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Nirvana">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Nirvana1997&#39;s blog"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Nirvana1997&#39;s blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Nirvana1997&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+            <h1 id="main-title" class="title">Nirvana1997's blog</h1>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/08/19/游戏服务器的网络协议/">
+                游戏服务器的网络协议
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-08-19</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/网络/">网络</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>来到公司后了解到我们的游戏服务器是使用tcp协议进行通信的</p>
+
+        </div>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/08/17/c++中的拷贝构造函数调用时机/">
+                c++中的拷贝构造函数调用时机
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-08-17</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/c/">c++</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>在码代码时会经常遇到stl容器类的传递,stl类内数据量较大时,拷贝时会耗费大量资源,需要避免,所以需要了解何时会调用拷贝构造函数.</p>
+<p>网上看到一种答案:</p>
+<blockquote>
+<p>拷贝构造函数调用的几种情况： </p>
+<ol>
+<li>当用类的一个对象去初始化该类的另一个对象（或引用）时系统自动调用拷贝构造函数实现拷贝赋值。 </li>
+<li>若函数的形参为类对象，调用函数时，实参赋值给形参，系统自动调用拷贝构造函数。 </li>
+<li>当函数的返回值是类对象时，系统自动调用拷贝构造函数。</li>
+</ol>
+</blockquote>
+<p>为验证正确性,以下做了个实验.</p>
+        </div>
+        <a href="/2018/08/17/c++中的拷贝构造函数调用时机/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/08/05/游戏后端c++开发的一些开发心得/">
+                游戏后端c++开发的一些开发心得
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-08-05</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/c/">c++</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>经过几个礼拜的实习,终于有点熟悉公司的环境了.我在公司的工作环境大致如下:</p>
+<ul>
+<li>语言:        主要使用<strong>c++</strong>,还会有一些<strong>lua、go</strong>等语言
+   编辑器:    <strong>vim</strong>
+   编译器:    <strong>gcc</strong>,编译时使用Makefile
+   版本控制:    <strong>git、svn</strong>,代码的管理主要通过git,配置文件的管理主要通过svn
+   调试工具:    <strong>gdb</strong></li>
+</ul>
+<p>从刚开始什么都不会,编码、调试什么的都无从下手,现在终于能够上手了.以下总结一下这几个礼拜中的一些心得,主要是一些开发时的技巧.(以下截图都是网上找的,因为公司代码不方便放出来~)</p>
+        </div>
+        <a href="/2018/08/05/游戏后端c++开发的一些开发心得/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/07/15/多线程下的运行时间统计/">
+                多线程下的运行时间统计
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-15</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/多线程编程/">多线程编程</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>前一阵子学习多线程编程时,发现了一些问题,写下这篇blog记录一下~作业是写一个计算N以内素数的程序,然后用不同的方式实现多线程.</p>
+        </div>
+        <a href="/2018/07/15/多线程下的运行时间统计/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/06/27/vim使用技巧学习-一/">
+                vim使用技巧学习(一)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-06-27</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/vim/">vim</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="1-为什么要用vim"><a href="#1-为什么要用vim" class="headerlink" title="1.为什么要用vim?"></a>1.为什么要用vim?</h2><p>我一直很疑惑vim为什么还有很多人使用,交互十分困难,上手难度很大.记得当时第一次用vim时,修改文件和保存文件都搞了半天.但后来听说很多公司实际开发时都会用vim.于是去网上找了找vim的优势,大概可以总结成以下几点:</p>
+<h3 id="vim对于一个远程shell是最友好的编辑器"><a href="#vim对于一个远程shell是最友好的编辑器" class="headerlink" title="- vim对于一个远程shell是最友好的编辑器 -"></a>- vim对于一个远程shell是最友好的编辑器 -</h3><p>alt键一般是难以通过远程登陆传播的,而ctrl键部分组合会被终端吃掉.而vim的交互只需要通过字母的组合键和冒号的指令.只有vim这种为终端shell设计的编辑器.他的快捷键设计使得自己能够正常的在shell中执行自己的绝大部分操作而不出故障.<strong>这是我认为vim最重要的一点优势.</strong></p>
+<h3 id="拥有较好的一致性"><a href="#拥有较好的一致性" class="headerlink" title="- 拥有较好的一致性 -"></a>- 拥有较好的一致性 -</h3><p>如果用IDE的话,不同的IDE功能不同,换一个新的IDE要习惯一个新的IDE的配置.但是vim只要你掌握最基本的用法就可以.</p>
+<h3 id="完全依靠键盘-不使用鼠标"><a href="#完全依靠键盘-不使用鼠标" class="headerlink" title="- 完全依靠键盘,不使用鼠标 -"></a>- 完全依靠键盘,不使用鼠标 -</h3><p>不能使用鼠标可以说是vim交互的缺点,但当你习惯以后,这反而会成为一种优势.一切操作都依靠键盘以后很多时候是可以提高工作效率的.</p>
+        </div>
+        <a href="/2018/06/27/vim使用技巧学习-一/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/06/22/protobuf记录-三/">
+                protobuf记录(三)——c++中的使用
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-06-22</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/protobuf/">protobuf</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>没有前言了</p>
+        </div>
+        <a href="/2018/06/22/protobuf记录-三/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/06/19/protobuf学习记录-二/">
+                protobuf学习记录(二)——编写与编译
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-06-19</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/protobuf/">protobuf</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上次学习了protobuf的安装，今天开始学习使用。以下例子也主要以C++为主。（ps：由于protobuf是谷歌推出的，所以下文给出文档需要翻墙~）</p>
+        </div>
+        <a href="/2018/06/19/protobuf学习记录-二/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+                <div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/06/17/protobuf记录(一)/">
+                protobuf学习记录(一)——介绍与安装
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-06-17</span>
+            
+            
+                <span class="category">
+                    <a href="/categories/protobuf/">protobuf</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由mentor介绍，开始接触protobuf，感觉还是蛮有用的一个工具，记录一下学习过程~</p>
+        </div>
+        <a href="/2018/06/17/protobuf记录(一)/" class="read-more">Read More</a>
+    
+
+</div>
+
+            
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/08/19/游戏服务器的网络协议/">游戏服务器的网络协议</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/08/17/c++中的拷贝构造函数调用时机/">c++中的拷贝构造函数调用时机</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/08/05/游戏后端c++开发的一些开发心得/">游戏后端c++开发的一些开发心得</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/15/多线程下的运行时间统计/">多线程下的运行时间统计</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/多线程编程/">多线程编程</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/网络/">网络</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/vim/">vim</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/c/">c++</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Nirvana1997">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:408985936@qq.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--统计start-->
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+        </script>
+        <span id="busuanzi_container_site_pv">
+            clicks: <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span id="busuanzi_container_site_uv">
+            visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <!--统计end-->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Nirvana1997. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Nirvana1997';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/nito.model.json"},"display":{"position":"right","width":100,"height":200,"hOffset":-50},"mobile":{"show":true},"react":{"opacityDefault":0.9,"opacityOnHover":0.2}});</script></body>
+
+</html>

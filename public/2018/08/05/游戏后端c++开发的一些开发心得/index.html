@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="1.前言经过几个礼拜的实习,终于有点熟悉公司的环境了.我在公司的工作环境大致如下:
+
+语言:        主要使用c++,还会有一些lua、go等语言
+   编辑器:    vim
+   编译器:    gcc,编译时使用Makefile
+   版本控制:    git、svn,代码的管理主要通过git,配置文件的管理主要通过svn
+   调试工具:    gdb
+
+从刚开始什么都不会,编码、调试什么的都无从下手,现在终于能够上手了.以下总结一下这几个礼拜中的一些心得,主要是一些开发时的技巧.(以下截图都是网上找的,因为公司代码不方便放出来~)">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Nirvana">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="游戏后端c++开发的一些开发心得"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Nirvana1997&#39;s blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>游戏后端c++开发的一些开发心得 - Nirvana1997&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/08/05/游戏后端c++开发的一些开发心得/">
+                游戏后端c++开发的一些开发心得
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-08-05</span>
+            
+            
+                <a href="#disqus_thread" class="comments">留言</a>
+            
+            
+                <span class="category">
+                    <a href="/categories/c/">c++</a>
+                </span>
+            
+        </div>
+        <div class="post-info">
+            <span id="busuanzi_container_page_pv">
+                clicks:<span id="busuanzi_value_page_pv"></span>
+            </span>
+        </div>
+    </div>
+    
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>经过几个礼拜的实习,终于有点熟悉公司的环境了.我在公司的工作环境大致如下:</p>
+<ul>
+<li>语言:        主要使用<strong>c++</strong>,还会有一些<strong>lua、go</strong>等语言
+   编辑器:    <strong>vim</strong>
+   编译器:    <strong>gcc</strong>,编译时使用Makefile
+   版本控制:    <strong>git、svn</strong>,代码的管理主要通过git,配置文件的管理主要通过svn
+   调试工具:    <strong>gdb</strong></li>
+</ul>
+<p>从刚开始什么都不会,编码、调试什么的都无从下手,现在终于能够上手了.以下总结一下这几个礼拜中的一些心得,主要是一些开发时的技巧.(以下截图都是网上找的,因为公司代码不方便放出来~)</p>
+<a id="more"></a>
+<h2 id="2-vim"><a href="#2-vim" class="headerlink" title="2.vim"></a>2.vim</h2><p>当初觉得vim真的很难用,我们用的是macOS,所以当初准备用xcode或者sublime来编码,然后编译完传到服务器上.但实际操作时发现,这样是无法实现的.</p>
+<p>首先,我们的项目实在过于庞大,光编译和运行就分别得用将近10分钟,想本地编码和编译然后上传服务器本身就是一件效率很低的事情.而且实际项目运行环境是linux,我们的项目中也有用到linux的库,所以在macOS上是无法编译运行的.所以最高效的方法还是直接在远程主机上使用vim编码.</p>
+<p>在使用了一段时间vim后,接触到一些技巧后,会发现vim其实也可以像一款ide一样.这里有一篇很棒的文章: <a href="https://blog.csdn.net/GarfieldEr007/article/details/52234175" target="_blank" rel="noopener">所需即所获：像 IDE 一样使用 vim</a>.介绍了很多vim使用的配置和插件,对安装和使用方法介绍的很好.所以接下来我就大概简单地介绍下我用到的.</p>
+<p>以下是我一些常用的插件或技巧:</p>
+<h3 id="vundle"><a href="#vundle" class="headerlink" title="vundle"></a>vundle</h3><p>vundle是vim下一个管理插件的一种方式.可以通过在vim配置文件中添加插件的声明来安装vim插件,有点类似于java项目中的maven,对于插件管理非常有帮助</p>
+<h3 id="NERDTree"><a href="#NERDTree" class="headerlink" title="NERDTree"></a>NERDTree</h3><p>NERDTree是一款vim的插件,可以以可视化的方式查看文件,并可以对文件进行新建、删除等简单操作.同时nerdtree也可以支持多文件分屏浏览.</p>
+<p><img src="/2018/08/05/游戏后端c++开发的一些开发心得/nerdtree.png" alt="nerdtree"></p>
+<center>nerdtree</center>
+
+<h3 id="YCM"><a href="#YCM" class="headerlink" title="YCM"></a>YCM</h3><p>YCM(YouCompleteMe)是一个静态代码分析工具,非常好用.它可以像ide一样智能提示,实现自动补全.同时,他可以检查出代码中的语法错误,错误代码会高亮显示,并在行首有”&gt;&gt;”提示符,虽然实际用下来感觉能报的错很有限.</p>
+<p><img src="/2018/08/05/游戏后端c++开发的一些开发心得/ycm.png" alt="ycm"></p>
+<center>ycm</center>
+
+<h3 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h3><p>ctags可以对项目中的变量、函数、类生成tags,通过tags你可以在代码中选择跳转到光标所在的变量、函数、类定义的地方.但他不方便的地方在于每次写完代码需要重新生成,否则跳转时可能回到错误的地方.</p>
+<h2 id="3-gdb"><a href="#3-gdb" class="headerlink" title="3.gdb"></a>3.gdb</h2><h3 id="gdb-pid"><a href="#gdb-pid" class="headerlink" title="gdb -pid"></a>gdb -pid</h3><p>以前只用过gdb直接编译运行代码,在大型项目中是无法实现的.这时候要需要使用gdb的-pid参数.</p>
+<p>使用<code>gdb -pid 进程号</code>指令便可以attach到运行中的c++项目,之后操作便和正常gdb一样了.</p>
+<h3 id="stl"><a href="#stl" class="headerlink" title="stl"></a>stl</h3><p>在调试时,常常需要检查stl的内容,当容器中内容较多时,无法很好地去查看内容.此时,可以使用<a href="https://www.cnblogs.com/silentNight/p/5466418.html" target="_blank" rel="noopener">这篇文章</a>中的技巧,便可以查看stl容器中内容了~</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/c/">#c++</a> <a href="/tags/心得/">#心得</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/08/19/游戏服务器的网络协议/">游戏服务器的网络协议</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/08/17/c++中的拷贝构造函数调用时机/">c++中的拷贝构造函数调用时机</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/08/05/游戏后端c++开发的一些开发心得/">游戏后端c++开发的一些开发心得</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/15/多线程下的运行时间统计/">多线程下的运行时间统计</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/多线程编程/">多线程编程</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/网络/">网络</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/vim/">vim</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/c/">c++</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Nirvana1997">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:408985936@qq.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--统计start-->
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+        </script>
+        <span id="busuanzi_container_site_pv">
+            clicks: <span id="busuanzi_value_site_pv"></span>
+        </span>
+        <span id="busuanzi_container_site_uv">
+            visitors: <span id="busuanzi_value_site_uv"></span>
+        </span>
+        <!--统计end-->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Nirvana1997. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'Nirvana1997';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/nito.model.json"},"display":{"position":"right","width":100,"height":200,"hOffset":-50},"mobile":{"show":true},"react":{"opacityDefault":0.9,"opacityOnHover":0.2}});</script></body>
+
+</html>
