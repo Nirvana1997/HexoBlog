@@ -10,15 +10,15 @@ date: 2018-08-22 10:08:27
 
 ##1.前言
 
+Lua作为一个运行效率非常高的脚本语言,简单方便,如今很多游戏开发都会用到.今天研究下c++和lua是如何交互的~
+
 <!-- more -->
 
-## 2.交互原理
+## 2.c++调用lua
 
-c++和lua交互主要是通过Lua的堆栈,一方将传递的参数以及参数个数压入栈中,另一方则在栈中取出参数,并将返回值压入栈中,由另一方取出,实现交互.这个过程和c++和汇编(如nasm)的交互过程很像.
+我是在macos上实验的,过程应该和linux上类似.使用的lua版本是5.3.0.
 
-## 3.调用环境搭建
-
-我是在macos上实验的,过程应该和linux上类似.
+c++调用lua原理主要是通过Lua的堆栈,一方将传递的参数以及参数个数压入栈中,另一方则在栈中取出参数,并将返回值压入栈中,由另一方取出,实现交互.这个过程和c++和汇编(如nasm)的交互过程很像.
 
 ### (i).添加依赖
 
@@ -29,7 +29,7 @@ c++和lua交互主要是通过Lua的堆栈,一方将传递的参数以及参数�
 设置search paths:
 
 	Header Search Paths设置为lua安装位置,用来搜索头文件.
-
+	
 	Library Search Paths设置为项目存放.a库的目录.
 
 ![lib](lua与c-的交互/path.png)
@@ -68,9 +68,7 @@ int main()
 
 ![lib](lua与c-的交互/run.png)
 
-##4.c++调用lua
-
-### (i).求和代码:
+### (iv).求和代码:
 
 lua代码:
 
@@ -146,3 +144,10 @@ int main()
 
 ![sum](lua与c-的交互/sum.png)
 
+## 3.lua调用c++
+
+lua调用c++原理主要是将c++代码编译成.so动态库,然后在lua中用require引入,从而调用.通信还是通过lua栈来实现的.这里就不展开了.具体可以参考[lua官方文档](http://www.lua.org/manual/),还有[lua5.3中文文档](http://cloudwu.github.io/lua53doc/)
+
+## 4.LuaTinker
+
+以上介绍的都是lua官方的提供给c的一些api,较为底层,其实有很多c++和lua代码的绑定库,将以上的栈操作以及函数注册等封装了起来,如LuaBind,LuaTinker等,我们的项目中使用的就是LuaTinker.LuaTinker使用方法可以在[git仓库](https://github.com/zupet/LuaTinker)中查看.
