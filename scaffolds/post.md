@@ -2,9 +2,9 @@
 title: {{ title }}
 date: {{ date }}
 category: 
-[category]
+- category
 tags: 
-[tag]
+- tag
 ---
 
 ##1.前言

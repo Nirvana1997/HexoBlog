@@ -19,6 +19,7 @@
     "hexo-renderer-marked": "^0.3.2",
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.2.2",
+    "live2d-widget": "^3.0.5",
     "live2d-widget-model-nito": "^1.0.5",
     "live2d-widget-model-tororo": "^1.0.5"
   }
