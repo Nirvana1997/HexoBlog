@@ -19,7 +19,7 @@ date: 2018-08-30 17:31:07
 
 .git目录内有以下文件夹:
 
-![git目录](/Users/qianzhihao/HexoBlog/source/_posts/git原理(一)/git目录.png)
+![git目录](git原理(一)/git目录.png)
 
 重要的文件或目录主要有这几个:
 
@@ -34,4 +34,10 @@ date: 2018-08-30 17:31:07
 git底层其实是一套内容寻址文件系统.就是说git底层允许存入任何形式的内容,并返回一个键值,可以随时根据该键值取出存入的内容.
 
 可以通过git的底层命令`hash-object`和`cat-file`存取git对象.
+
+git对象主要有tree对象,文件对象,commit对象.按我的理解,git对象的组织就像是linux的文件系统外再加一个commit对象,指向每次commit对应的"根目录",tree就对应linux中的目录.
+
+书的[第二章](https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1)中做了个实验,以底层的指令完成`git add`和`git commit`的操作,完成后git的对象是这样的:
+
+![git-trial](git原理(一)/git-trial.png)
 
