@@ -8,7 +8,7 @@ tags:
 date: 2018-08-22 10:08:27
 ---
 
-##1.前言
+## 1.前言
 
 Lua作为一个运行效率非常高的脚本语言,简单方便,如今很多游戏开发都会用到.今天研究下c++和lua是如何交互的~
 
@@ -28,9 +28,9 @@ c++调用lua原理主要是通过Lua的堆栈,一方将传递的参数以及参�
 
 设置search paths:
 
-	Header Search Paths设置为lua安装位置,用来搜索头文件.
+Header Search Paths设置为lua安装位置,用来搜索头文件.
 	
-	Library Search Paths设置为项目存放.a库的目录.
+Library Search Paths设置为项目存放.a库的目录.
 
 ![lib](lua与c-的交互/path.png)
 
