@@ -67,3 +67,107 @@ template<typename K, typename Pair, typename Hashtable>
 3. 在bucket中寻找key值对应的node
 4. 若存在对应node,则返回node对应值,若不存在,则插入一个新节点,返回新节点的值(对应类型默认值)
 
+### iii.hash
+
+hashtable一个很重要的影响性能的因素是冲突率,即一个桶中的元素个数.而决定冲突率的则是hash函数和桶的个数,所以hash函数的定义和rehash的时机格外重要.
+
+```c++
+inline std::pair<bool, std::size_t>
+  prime_rehash_policy::
+  need_rehash(std::size_t n_bkt, std::size_t n_elt, std::size_t n_ins) const
+  {
+    if (n_elt + n_ins > m_next_resize)
+      {
+	float min_bkts = (float(n_ins) + float(n_elt)) / m_max_load_factor;
+	if (min_bkts > n_bkt)
+	  {
+	    min_bkts = std::max(min_bkts, m_growth_factor * n_bkt);
+	    const unsigned long* const last = X<>::primes + X<>::n_primes;
+	    const unsigned long* p = std::lower_bound(X<>::primes, last,
+						      min_bkts, lt());
+	    m_next_resize =
+	      static_cast<std::size_t>(std::ceil(*p * m_max_load_factor));
+	    return std::make_pair(true, *p);
+	  }
+	else
+	  {
+	    m_next_resize =
+	      static_cast<std::size_t>(std::ceil(n_bkt * m_max_load_factor));
+	    return std::make_pair(false, 0);
+	  }
+      }
+    else
+      return std::make_pair(false, 0);
+  }
+```
+
+以上是need_rehash函数,判断是否需要rehash的主要是依靠m_max_load_factor,这是元素个数和桶的个数的比例,默认为1.0,若桶数目过少hashtable便会进行一次rehash.
+
+```c++
+template<typename K, typename V,
+	   typename A, typename Ex, typename Eq,
+	   typename H1, typename H2, typename H, typename RP,
+	   bool c, bool ci, bool u>
+    void
+    hashtable<K, V, A, Ex, Eq, H1, H2, H, RP, c, ci, u>::
+    m_rehash(size_type n)
+    {
+      node** new_array = m_allocate_buckets(n);
+      try
+	{
+	  for (size_type i = 0; i < m_bucket_count; ++i)
+	    while (node* p = m_buckets[i])
+	      {
+		size_type new_index = this->bucket_index(p, n);
+		m_buckets[i] = p->m_next;
+		p->m_next = new_array[new_index];
+		new_array[new_index] = p;
+	      }
+	  m_deallocate_buckets(m_buckets, m_bucket_count);
+	  m_bucket_count = n;
+	  m_buckets = new_array;
+	}
+      catch(...)
+	{
+	  // A failure here means that a hash function threw an exception.
+	  // We can't restore the previous state without calling the hash
+	  // function again, so the only sensible recovery is to delete
+	  // everything.
+	  m_deallocate_nodes(new_array, n);
+	  m_deallocate_buckets(new_array, n);
+	  m_deallocate_nodes(m_buckets, m_bucket_count);
+	  m_element_count = 0;
+	  __throw_exception_again;
+	}
+    }
+```
+
+接下来是rehash函数,rehash其实就是新开辟一块空间,重进计算hash将元素放入,然后释放原来的空间,很好理解.
+
+```c++
+template<>
+    struct Fnv_hash<8>
+    {
+      static std::size_t
+      hash(const char* first, std::size_t length)
+      {
+	std::size_t result = static_cast<std::size_t>(14695981039346656037ULL);
+	for (; length > 0; --length)
+	  {
+	    result ^= (std::size_t)*first++;
+	    result *= 1099511628211ULL;
+	  }
+	return result;
+      }
+    };
+```
+
+最后是hash函数,这里的hash函数是std::string的.
+
+## 3.总结
+
+c++底层实现的hashtable和基础的数据结构还是很一致的,但细节上很多是经过考量的,比如hash函数,有很多版本.网上看到:
+
+>FNV 有分版本，例如 FNV-1 和 FNV-1a，区别其实就是先异或再乘，或者先乘在异或，这里用的是 FNV-1a，为什么呢，维基里面说，The small change in order leads to much better avalanche characteristics，什么叫 avalanche characteristics 呢，这个是个密码学术语，叫雪崩效应，意思是说输入的一个非常微小的改动，也会使最终的 hash 结果发生非常巨大的变化，这样的哈希效果被认为是更好的。
+
+所以光知道数据结构,在实现时不注重细节处理也很容易造成很多问题.
