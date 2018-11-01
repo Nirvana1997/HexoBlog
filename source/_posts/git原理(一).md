@@ -7,7 +7,7 @@ tags:
 date: 2018-08-30 17:31:07
 ---
 
-##1.前言
+## 1.前言
 
 一直觉得git很神奇,他的分支切换很快,他的自动合并很智能,他在协作编码时有着不可替代的作用.所以这两天想研究下git的实现原理,参考的资料主要是[Git Internals](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain),《Pro Git》的Chapter 10,还有中文版的[Git内部原理](https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-%E5%BA%95%E5%B1%82%E5%91%BD%E4%BB%A4-Plumbing-%E5%92%8C%E9%AB%98%E5%B1%82%E5%91%BD%E4%BB%A4-Porcelain).
 
