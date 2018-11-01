@@ -1,9 +1,10 @@
 ---
 title: c++中unordered_map的实现
 category:
-  - category
+  - c++
 tags:
-  - tag
+  - c++
+  - stl
 date: 2018-10-29 15:14:34
 ---
 

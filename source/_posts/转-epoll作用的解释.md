@@ -1,9 +1,10 @@
 ---
 title: '[转]epoll作用的解释'
 category:
-  - category
+  - Linux
 tags:
-  - tag
+  - Linux
+  - epoll
 date: 2018-10-31 18:12:04
 ---
 
