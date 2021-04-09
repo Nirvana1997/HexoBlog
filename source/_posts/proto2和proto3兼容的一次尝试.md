@@ -14,6 +14,8 @@ date: 2021-04-01 17:12:42
 
 (文章中的proto2版本为**2.6.1**，proto3的版本为**3.15.6**。)
 
+<!-- more -->
+
 ## 2.proto2与proto3的主要区别
 
 ### I.移除了default和required选项
