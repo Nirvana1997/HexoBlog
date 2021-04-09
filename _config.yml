@@ -91,12 +91,13 @@ live2d:
   pluginJsPath: lib/
   pluginModelPath: assets/
   model:
-    use: live2d-widget-model-nito
+    use: live2d-widget-model-umaru
   display:
     position: right
     width: 100
+    wOffset: -200
     height: 200
-    hOffset: -50
+    hOffset: 0
   mobile:
     show: true
   react:
