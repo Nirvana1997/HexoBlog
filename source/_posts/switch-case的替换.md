@@ -231,14 +231,14 @@ main:
 
 大概可以看到switch-case就是简单的比较和跳转，时间复杂度理论上是O(n)，但实际上为什么switch-case会比O(1)的unordered_map和O(n)的vector效率相差这么多呢？我用的是O0的优化，使用了5个case，猜想可能和优化等级和case数目有关？于是我使用不同数目的case在O0和O2下做了性能统计。(如何使用变量控制n个case，头疼了蛮久，不太会使用宏去生成，用脚本去生成c++代码又觉得有些浪费，最后网上找到这篇博客：[用C语言宏批量生成代码的思考与实现](https://zhou-yuxin.github.io/articles/2016/%E7%94%A8C%E8%AF%AD%E8%A8%80%E5%AE%8F%E6%89%B9%E9%87%8F%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81%E7%9A%84%E6%80%9D%E8%80%83%E4%B8%8E%E5%AE%9E%E7%8E%B0/index.html)，使用博主提供的头文件，使用宏生成了测试代码——[switchcaseOptTest](https://github.com/Nirvana1997/TestRepo/tree/master/switchcaseOptTest))
 
-|              | unordered_map | switch-case | vector  |
-| ------------ | ------------- | ----------- | ------- |
-| O0，case-5   | 1610ms        | 287ms       | 1393ms  |
-| O0，case-100 | 1718ms        | 318ms       | 8346ms  |
-| O0，case-255 | 1929ms        | 326ms       | 17491ms |
-| O2，case-5   | 229ms         | 60ms        | 181ms   |
-| O2，case-100 | 278ms         | 60ms        | 472ms   |
-| O2，case-255 | 312ms         | 60ms        | 805ms   |
+|              | unordered_map | switch-case | vector  | array  |
+| ------------ | ------------- | ----------- | ------- | ------ |
+| O0，case-5   | 1610ms        | 287ms       | 1393ms  | 584ms  |
+| O0，case-100 | 1718ms        | 318ms       | 8346ms  | 622ms  |
+| O0，case-255 | 1929ms        | 326ms       | 17491ms | 1278ms |
+| O2，case-5   | 229ms         | 60ms        | 181ms   | 200ms  |
+| O2，case-100 | 278ms         | 60ms        | 472ms   | 239ms  |
+| O2，case-255 | 312ms         | 60ms        | 805ms   | 314ms  |
 
 发现不论在O0还是O2的情况下，switch-case的效率都是最高的，而且在O2的情况下几乎不会随着case数增长而增长；map消耗时间随case数缓慢增长而vector随case数接近线性增长。
 
