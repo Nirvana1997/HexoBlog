@@ -242,7 +242,7 @@ main:
 
 发现不论在O0还是O2的情况下，switch-case的效率都是最高的，而且在O2的情况下几乎不会随着case数增长而增长；map消耗时间随case数缓慢增长而vector随case数接近线性增长。
 
-这与我们理论上得到的结论大相径庭。
+这与我们理论上得到的结论大相径庭。(网上找到一篇go中类似的性能对比[map vs switch performance in go](https://stackoverflow.com/questions/46789259/map-vs-switch-performance-in-go)，其中使用slice代替switch-case，效率得到了一定的提升，于是我在测试中加入了array，但实际性能和unordered_map类似）
 
 ## 4.switch-case原理
 
