@@ -8,13 +8,11 @@ tags:
 date: 2018-08-22 10:08:27
 ---
 
-## 1.前言
-
 Lua作为一个运行效率非常高的脚本语言,简单方便,如今很多游戏开发都会用到.今天研究下c++和lua是如何交互的~
 
 <!-- more -->
 
-## 2.c++调用lua
+## 1.c++调用lua
 
 我是在macos上实验的,过程应该和linux上类似.使用的lua版本是5.3.0.
 
@@ -144,10 +142,10 @@ int main()
 
 ![sum](lua与c-的交互/sum.png)
 
-## 3.lua调用c++
+## 2.lua调用c++
 
 lua调用c++原理主要是将c++代码编译成.so动态库,然后在lua中用require引入,从而调用.通信还是通过lua栈来实现的.这里就不展开了.具体可以参考[lua官方文档](http://www.lua.org/manual/),还有[lua5.3中文文档](http://cloudwu.github.io/lua53doc/)
 
-## 4.LuaTinker
+## 3.LuaTinker
 
 以上介绍的都是lua官方的提供给c的一些api,较为底层,其实有很多c++和lua代码的绑定库,将以上的栈操作以及函数注册等封装了起来,如LuaBind,LuaTinker等,我们的项目中使用的就是LuaTinker.LuaTinker使用方法可以在[git仓库](https://github.com/zupet/LuaTinker)中查看.

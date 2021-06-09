@@ -8,8 +8,6 @@ tags:
 date: 2021-04-27 20:06:57
 ---
 
-## 1.前言
-
 今天在给vscode适配clang-format的过程中遇到了一个警告，平时用vim时没有被暴露出来，在vscode中每次调用到都会弹出：
 
 ```bash
@@ -21,7 +19,7 @@ clang-format: /lib64/libtinfo.so.5: no version information available (required b
 
 <!-- more -->
 
-## 2.尝试
+## 1.尝试
 
 首先根据网上查阅到的资料，尝试了几种方法：
 
@@ -49,7 +47,7 @@ sudo apt update && sudo apt install -y libtinfo5
 
 网上看到有其他haskell等程序会报相同的错，更新重装就好了。于是我开始研究怎么更新重装clang-format。但是我发现我服务器上的clang-format是带在llvm中的，yum中也没有单独安装clang-format的选项，llvm太大了，我暂时考虑放弃这条路。
 
-## 3.问题解决
+## 2.问题解决
 
 我发现同事的镜像中clang-format没有报这个错，于是拉下来研究，发现他们的clang-format是npm装的：
 

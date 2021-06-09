@@ -7,13 +7,11 @@ tags:
 date: 2020-12-21 23:09:35
 ---
 
-## 1.前言
-
 switch-case是我们常用的一种语法，几乎所有的语言都有这种语法，可以根据变量的不同情况进行对应处理。但switch-case仅支持整型（int），字符（char）和枚举(enum)，而且switch-case实现应该是类似multi-if，在情况较多时效率较低，并且代码可读性会降低，所以这次想思考下如何优化。
 
 <!-- more -->
 
-## 2.优化方式
+## 1.优化方式
 
 一次switch-case的过程其实就是一次寻找元素的过程。而在元素固定的情况下，寻找元素，最快的结构就是HashTable，也就是c++的unordered_map。只要通过将处理函数抽象成通用函数便可以利用。
 like this:
@@ -52,7 +50,7 @@ mapFunc[(int)CASE_1] = [](Param param) {
 
 这样，就实现了使用unordered_map来完成switch-case的工作。当case较多，处理函数较复杂时，这样可以有效地减少代码的复杂度。并且因为unordered_map使用的是hashtable的树结构，所以相比比switch-case有更好的时间效率（理论上）。
 
-## 3.性能对比
+## 2.性能对比
 
 刚才对于性能的对比是基于理论的猜想，实际性能需要数据支持，于是我写了下面的测试代码：
 
@@ -244,12 +242,12 @@ main:
 
 这与我们理论上得到的结论大相径庭。(网上找到一篇go中类似的性能对比[map vs switch performance in go](https://stackoverflow.com/questions/46789259/map-vs-switch-performance-in-go)，其中使用slice代替switch-case，效率得到了一定的提升，于是我在测试中加入了array，但实际性能和unordered_map类似）
 
-## 4.switch-case原理
+## 3.switch-case原理
 
 根据[Advantage of switch over if-else statement](https://stackoverflow.com/questions/97987/advantage-of-switch-over-if-else-statement)了解到，通常情况下编译器会为switch-case建立二叉决策树或者建立跳转表，因此和multi-if的遍历的做法其实是不一样的，效率回避multi-if高很多。
 
 但是决策树和跳转表的结构照理和stl的map和unordered_map的结构类似，但是为什么效率还是差了很多呢？我猜测是由于stl的结构占得内存较大，默认的switch-case结构占得内存较小，在cache机制中容易整段进入cache，所以效率较高，但是我也没细究了。
 
-## 5.结论
+## 4.结论
 
 switch-case作为原生的机制，效率还是非常高的，在百个case这个量级下比stl的容器效率高很多（目前大多项目一个case百量级应该够用了），但switch-case在case较多的情况下，即使每个case只用一个函数可读性感觉还是没那么好，所以在效率没那么敏感，case较多的情况下还是用一些结构如map等去整理case比较好。

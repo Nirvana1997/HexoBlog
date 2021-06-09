@@ -8,13 +8,11 @@ tags:
 date: 2018-11-01 17:26:44
 ---
 
-## 1.前言
-
 昨天弄懂了epoll是干啥的,今天来研究下它是怎么实现的以及怎么用的.
 
 <!-- more -->
 
-## 2.select和poll
+## 1.select和poll
 
 读了很多讲解epoll的文章,几乎都会提到select和poll,因为他们做的事是相同的,就是实现IO多路复用.
 
@@ -34,7 +32,7 @@ fd_set是作为参数传入的,因为是系统调用,所以在调用select和pol
 
 因为需要拷贝操作和遍历,随着fds中的文件描述符数目增长,耗费的性能会线性增长,而且select监控的文件描述符有1024的限制.poll解决了1024这一限制,但性能的问题依旧没能解决,所以最终都被epoll所代替了.
 
-## 3.epoll
+## 2.epoll
 
 重点来了,因为poll没能解决select的性能问题,所以出现了epoll.
 
@@ -55,7 +53,7 @@ int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout
 
 epoll为了避免遍历所有监控的fd,引入了一个ready_list,保存就绪的事件,同时每个epoll会有一个单独的睡眠列表(select和poll在事件发生时会遍历总的睡眠列表调用回调函数).这样大大减少了遍历操作的成本.
 
-## 4.总结
+## 3.总结
 
 看完实现,我的理解大概是这样的:
 

@@ -8,15 +8,13 @@ tags:
 date: 2018-10-29 15:14:34
 ---
 
-## 1.前言
-
 写leetcode时发现很多时候高效的答案会用到unordered_map和unordered_set.从使用角度看,unordered的stl容器与正常的map,set相比,在插入和查询的效率上更高,[《boost::unordered_map 和 std::map 的对比》](https://blog.csdn.net/ljp1919/article/details/50463761?utm_source=blogkpcl7)中用5000万条数据放入两个容器中进行了对比.这是因为实现上,unordered的stl容器使用的是hashtable,而map,set使用的是红黑树.当然map,set插入后天然有序,需要按key排序时会比较方便.
 
 正好面试要求让我写hashtable的实现,今天就研究一下c++中unordered_map的实现,主要参照的是linux下的源码:/usr/include/c++/4.8.2/profile/unordered_map和hashtable(hashtable我在我的c++源码里没找到,可能在编译好的库中了,所以找的网上的代码).
 
 <!-- more -->
 
-## 2.源代码
+## 1.源代码
 
 ### i.模板定义
 
@@ -165,7 +163,7 @@ template<>
 
 最后是hash函数,这里的hash函数是std::string的.
 
-## 3.总结
+## 2.总结
 
 c++底层实现的hashtable和基础的数据结构还是很一致的,但细节上很多是经过考量的,比如hash函数,有很多版本.网上看到:
 
