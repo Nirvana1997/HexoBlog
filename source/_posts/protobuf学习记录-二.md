@@ -66,7 +66,7 @@ message AddressBook {
 数据项需要声明数据类型和名称，这和那些强类型语言是一样的。
 
 protobuf中的数据类型和其他语言的对应关系见下图：
-![type](protobuf学习记录-二/protobuf-type.png)
+![type](protobuf-type.png)
 
 ### 编号
 数据项最后会有一个`= 1`、`= 2`这样的编号。这些编号是用来在二进制文件中唯一标识每一个数据项的tag，要保证每个message内的各个数据项的tag不同。其中1-15的tag占用的空间比16及以上的tag少一个字节，所以常用的一些属性最好以1-15去标识。（repeated的属性每一条都会需要在二进制文件中保存一个tag，所以repeated的属性应尽可能使用1-15的tag）

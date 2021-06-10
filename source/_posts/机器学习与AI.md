@@ -16,7 +16,7 @@ date: 2020-08-02 12:20:39
 
 文章中有幅图非常好地描述了几种AI的定位。
 
-![machinelearning](机器学习与AI/machinelearning.png)
+![machinelearning](machinelearning.png)
 
 图中对应的分别是：脚本AI、基于规则AI、有限状态机、基于效用AI、计划、机器学习。图中，越往左，人工指定策略的因素越多，越往右，AI自主性越强。当前游戏市场中的游戏最主要的AI形式应该是有限状态机，而机器学习的AI投入市场使用的非常少，我所了解的，基本都是处于实验状态，目前以moba游戏居多。
 
@@ -28,7 +28,7 @@ date: 2020-08-02 12:20:39
 
 Unity ML-Agent的机器学习的底层实现还是经典到不能再经典的TensorFlow，实现架构如下图：
 
-![unitymlagent](机器学习与AI/unitymlagent.jpg)
+![unitymlagent](unitymlagent.jpg)
 
 可以看到主要是通过socket通信实现的。训练阶段，Unity作为Client将训练数据通过Socket发送至TensorFlow，TensorFlow将训练好的模型保存，通过TensorFlowSharp将模型用于Brain，来知道Agent与环境交互。
 
@@ -38,7 +38,7 @@ Unity ML-Agent的机器学习的底层实现还是经典到不能再经典的Ten
 
 平衡球学习的目标是让一个球体保持平衡在平台中间。
 
-![ball](机器学习与AI/ball.gif)
+![ball](ball.gif)
 
 ```csharp
 

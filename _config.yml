@@ -38,7 +38,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -95,7 +95,7 @@ live2d:
     width: 100
     wOffset: -200
     height: 200
-    hOffset: 0
+    hOffset: 100
   mobile:
     show: true
   react:

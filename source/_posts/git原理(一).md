@@ -17,7 +17,7 @@ date: 2018-08-30 17:31:07
 
 .git目录内有以下文件夹:
 
-![git目录](git原理(一)/git目录.png)
+![git目录](git目录.png)
 
 重要的文件或目录主要有这几个:
 
@@ -37,5 +37,5 @@ git对象主要有tree对象,文件对象,commit对象.按我的理解,git对象
 
 书的[第二章](https://git-scm.com/book/zh/v1/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1)中做了个实验,以底层的指令完成`git add`和`git commit`的操作,完成后git的对象是这样的:
 
-![git-trial](git原理(一)/git-trial.png)
+![git-trial](git-trial.png)
 

@@ -37,7 +37,7 @@ vundle是vim下一个管理插件的一种方式.可以通过在vim配置文件�
 
 NERDTree是一款vim的插件,可以以可视化的方式查看文件,并可以对文件进行新建、删除等简单操作.同时nerdtree也可以支持多文件分屏浏览.
 
-![nerdtree](游戏后端c++开发的一些开发心得/nerdtree.png)
+![nerdtree](nerdtree.png)
 
 <center>nerdtree</center>
 
@@ -45,7 +45,7 @@ NERDTree是一款vim的插件,可以以可视化的方式查看文件,并可以�
 
 YCM(YouCompleteMe)是一个静态代码分析工具,非常好用.它可以像ide一样智能提示,实现自动补全.同时,他可以检查出代码中的语法错误,错误代码会高亮显示,并在行首有">>"提示符,虽然实际用下来感觉能报的错很有限.
 
-![ycm](游戏后端c++开发的一些开发心得/ycm.png)
+![ycm](ycm.png)
 
 <center>ycm</center>
 

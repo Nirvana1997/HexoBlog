@@ -22,7 +22,7 @@ c++调用lua原理主要是通过Lua的堆栈,一方将传递的参数以及参�
 
 将liblua.a添加到项目中:
 
-![lib](lua与c-的交互/lib.png)
+![lib](lib.png)
 
 设置search paths:
 
@@ -30,7 +30,7 @@ Header Search Paths设置为lua安装位置,用来搜索头文件.
 	
 Library Search Paths设置为项目存放.a库的目录.
 
-![lib](lua与c-的交互/path.png)
+![lib](path.png)
 
 ### (ii).代码测试
 
@@ -64,7 +64,7 @@ int main()
 
 运行结果:
 
-![lib](lua与c-的交互/run.png)
+![lib](run.png)
 
 ### (iv).求和代码:
 
@@ -140,7 +140,7 @@ int main()
 
 结果:
 
-![sum](lua与c-的交互/sum.png)
+![sum](sum.png)
 
 ## 2.lua调用c++
 
