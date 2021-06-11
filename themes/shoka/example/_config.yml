@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Nirvana's blog
-subtitle: 这是一个普通的副标题
-description: 主人很懒，没留下什么介绍哦~
+title: Hexo
+subtitle: subtitle
+description: 描述123
 keywords: 关键词1,关键词2 # edit for Theme.shoka
-author: Nirvana
+author: John Doe
 language: zh-CN # 这里只可以选 zh-CN、zh-HK、zh-TW、ja、en 这几个格式
 timezone: 'Asia/Shanghai'
 
@@ -38,7 +38,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
+post_asset_folder: false
 relative_link: false
 future: true
 highlight:
@@ -77,30 +77,9 @@ pagination_dir: page
 theme: shoka # edit for Theme.shoka
 
 # Deployment
-## Docs: https://hexo.io/docs/deployment.html
+## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: https://github.com/Nirvana1997/Nirvana1997.github.io.git
-
-live2d:
-  enable: true
-  scriptFrom: local
-  pluginRootPath: live2dw/
-  pluginJsPath: lib/
-  pluginModelPath: assets/
-  model:
-    use: live2d-widget-model-shizuku
-  display:
-    position: right
-    width: 100
-    wOffset: 200
-    height: 200
-    hOffset: 100
-  mobile:
-    show: true
-  react:
-    opacityDefault: 0.9
-    opacityOnHover: 0.2
+  type:
 
 
 # edit for Theme.shoka
