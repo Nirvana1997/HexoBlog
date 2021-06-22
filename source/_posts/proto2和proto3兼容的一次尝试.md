@@ -36,7 +36,7 @@ proto3中，可以不指定修饰词，这样的字段默认为singular。singul
 
 ### IV.其他
 
-除此之外，proto3还假如了Any，OneOf等新特性，移除了groups等语法，不过这写新特性对于正在使用proto2的项目可能没有很多适合的使用场景。
+除此之外，proto3还加入了Any，OneOf等新特性，移除了groups等语法，不过这些新特性对于正在使用proto2的项目可能没有很多适合的使用场景。
 
 ## 2.proto2与proto3的兼容
 
