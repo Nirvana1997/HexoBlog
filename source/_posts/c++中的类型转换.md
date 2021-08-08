@@ -194,3 +194,4 @@ const_cast可以改变一个指针或引用是否const的性质，它可以将�
 ## 4.总结
 
 平时我们项目中常用的基本就是dynamic_cast和static_cast，不过由于dynamic_cast在父类指针转换成子类时，会消耗不少性能去转换类的合法性，所以我们项目中不少dynamic_cast在优化中通过一些标志类型的虚函数保证类的合法性，然后使用static_cast转换从而提升性能。此篇主要参考了官网的[《Type Conversions》](http://www.cplusplus.com/doc/tutorial/typecasting/)，从中也了解到dynamic_cast是通过RTTI来确定类的特性，从而判断转换是否合法的，这个目前我还不是很了解，下次继续研究~
+
