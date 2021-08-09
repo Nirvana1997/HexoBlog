@@ -7,7 +7,7 @@ tags:
 date: 2021-08-01 23:51:47
 ---
 
-这次想研究下dynamic-cast的原理。
+这次想研究下dynamic-cast的原理，研究到最后发现，研究的其实是RTTI的原理。
 <!-- more -->
 
 ## 1.typeid
@@ -29,7 +29,7 @@ public:
 };
 ```
 
-这个对象包含了一个对象的类型信息。
+这个对象包含了一个对象的类型信息，也就是c++中的**RTTI（Runtime Type Identification，即运行时类型识别）**。
 
 有趣的是，当typeid作用于指针时，会返回指针自身的类型，但当作用于派生类（有虚函数）的对象或引用时，则会返回这个对象实际的类型。
 
@@ -89,9 +89,91 @@ P10SceneEntry
 
 ## 2.dynamic_cast
 
-通过了解type_info，也就基本知道dynamic_cast的原理了，其实它就是利用type_info去判断一个指针所指的类实际是什么的，不过这也依赖于虚函数表，所以当你dynamic_cast一个没有虚函数的类时就会报错（static_cast不会受影响）：
+通过了解type_info，也就基本知道dynamic_cast的原理了，其实它就是利用RTTI去判断一个指针所指的类实际是什么的，不过这也依赖于虚函数表，所以当你dynamic_cast一个没有虚函数的类时就会报错（static_cast不会受影响）：
 
 ```bash
 error: 'SceneEntry' is not polymorphic
 ```
 
+## 3.RTTI的原理
+
+所以最终，要研究typeid和dynamic_cast这两个运算符的原理，本质其实是研究RTTI的原理，这次主要通过这篇博文[《C++对象模型之RTTI的实现原理》](https://blog.csdn.net/ljianhui/article/details/46487951)来研究，还是增添了不少对c++内存布局的理解的。
+
+我们可以通过以下代码来进行试验：
+
+```c++
+class X
+{
+    public:
+        X()
+        {
+            mX = 101;
+        }
+	  virtual void vfunc()
+        {
+            cout << "X::vfunc()" << endl;
+        }
+
+    private:
+        int mX;
+};
+ 
+class XX : public X
+{
+    public:
+        XX(): X()
+        {
+            mXX = 1001;
+        }
+	  virtual void vfunc()
+        {
+            cout << "XX::vfunc()" << endl;
+        }
+
+    private:
+        int mXX;
+};
+```
+
+首先定义两个有继承关系的类，并且定义一个虚函数，然后通过以下代码来验证一个对象的布局：
+
+```c++
+typedef void (*FuncPtr)();
+int main()
+{
+    XX xx;
+    FuncPtr func;
+    char *p = (char*)&xx;
+    // 获得虚函数表的地址
+    int **vtbl = (int**)*(int**)p;
+    // 输出虚函数表的地址，即vptr的值
+    cout << vtbl << endl;
+    // 获得type_info对象的指针，并调用其name成员函数
+    cout << "\t[-1]: " << (vtbl[-1]) << " -> "
+        << ((type_info*)(vtbl[-1]))->name() << endl;
+    // 调用第一个virtual函数
+    cout << "\t[0]: " << vtbl[0] << " -> ";
+    func = (FuncPtr)vtbl[0];
+    func();
+    // 输出基类的成员变量的值
+    p += sizeof(int**);
+    cout << *(int*)p << endl;
+    // 输出派生类的成员变量的值
+    p += sizeof(int);
+    cout << *(int*)p << endl;
+    return 0;
+}
+```
+
+运行得到以下输出：
+
+```bash
+> ./classStructTest
+0x105127110
+	[-1]: 0x105127130 -> 2XX
+	[0]: 0x1051261d0 -> XX::vfunc()
+101
+1001
+```
+
+由此可以
