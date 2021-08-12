@@ -14,7 +14,7 @@ date: 2021-07-24 18:57:55
 
 ### i.隐式类型转换
 
-``` c++
+```cpp
 short a = 2000;
 int b;
 b = a;
@@ -22,7 +22,7 @@ b = a;
 
 当用short类型的a给int类型的b赋值时，便会自动将short类型转换成int。这种从小类型的整形往更大的整形的转换，就是一次“提升”（promotion），从整形到浮点类型的转化也是一样。个人理解，“提升”就是数值不会溢出转换，这种情况下c++会自动隐式类型转换，并以相同的数值转换过去。
 
-```c++
+```cpp
 class A {};
 
 class B {
@@ -47,7 +47,7 @@ int main ()
 
 类通过重载赋值运算符，也可以实现隐式转换。
 
-```c++
+```cpp
 void fn(B bar){}
 
 int main()
@@ -59,7 +59,7 @@ int main()
 
 在传入函数时，若只声明了B类型参数的函数，也会发生隐式类型转换。
 
-```c++
+```cpp
 class B {
 public:
   explicit B (const A& x) {}
@@ -84,7 +84,7 @@ int main ()
 
 ###ii.显式类型转换
 
-```c++
+```cpp
 A* pFoo = new A();
 B* pBar = (B*)pFoo;
 ```
@@ -105,7 +105,7 @@ dynamic_cast可以用于指针和引用的转换，它会保证本次转换的�
 
 static_cast可以将指针或引用转换成它的基类或者派生类，当像下面一样转换成毫不相关的类指针时，编译就会报错。
 
-``` c++
+```cpp
   A* foo = new A();
   // error: static_cast from 'A *' to 'B *', which are not related by inheritance, is not allowed
   B* bar = static_cast<B*>(foo);
@@ -113,7 +113,7 @@ static_cast可以将指针或引用转换成它的基类或者派生类，当像
 
 但当转换的类有继承关系时，static_cast便会直接转换，可能会导致错误的转换，引起程序的错误，所以使用static_cast时，程序的安全性需要由程序员来保证。但也正是因为static_cast在运行时不做额外的检查，所以相比dynamic_cast，static_cast的效率更高。
 
-``` c++
+```cpp
 Base* pDerived = new Derived(1, "xiaoming");
 int count = 0;
 while (std::cin >> count)
@@ -166,7 +166,7 @@ dynamic_cast,次数:10000000,耗时:176645
 
 但当从派生类转换为基类时：
 
-```c++
+```cpp
 10000
 显式转换,次数:10000,耗时:40
 static_cast,次数:10000,耗时:40

@@ -16,7 +16,7 @@ switch-case是我们常用的一种语法，几乎所有的语言都有这种语
 一次switch-case的过程其实就是一次寻找元素的过程。而在元素固定的情况下，寻找元素，最快的结构就是HashTable，也就是c++的unordered_map。只要通过将处理函数抽象成通用函数便可以利用。
 like this:
 
-``` c++
+```cpp
 enum CASE
 {
     CASE_1,
@@ -54,7 +54,7 @@ mapFunc[(int)CASE_1] = [](Param param) {
 
 刚才对于性能的对比是基于理论的猜想，实际性能需要数据支持，于是我写了下面的测试代码：
 
-```c++
+```cpp
 unordered_map<int, function<void(Param)>> mapFunc =
     {
         {CASE_1, [](Param param) {}},
@@ -188,7 +188,7 @@ switch-case的效率和stl相比快了很多，难道switch-case的实现原理�
 
 于是我又通过测试代码，获取对应汇编：
 
-```c++
+```cpp
 int main()
 {
 	int a, sc = 1;

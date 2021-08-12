@@ -47,7 +47,7 @@ message AddressBook {
 ```
 通过这份.proto文件编译成的.h文件中有非常多的接口和方法。先来看关于数据项的一些接口：
 
-``` c++
+```cpp
   // name,主要以他为例,下面说明每个方法的作用
   // has_xxx(),用来判断该值是否已经赋过值
   inline bool has_name() const;
@@ -91,7 +91,7 @@ message AddressBook {
 ### message接口
 每个message生成类中会包含以下接口:
 
-``` c++
+```cpp
 // 判断是否所有required的数据项都赋值过了
 bool IsInitialized() const;
 // 返回一个包含各个属性的可读字符串,用于调试
@@ -103,7 +103,7 @@ void Clear();
 ```
 
 ### 序列化接口
-``` c++
+```cpp
 // 序列化至output字符串
 bool SerializeToString(string* output) const;
 // 使用字符串给自己赋值
@@ -123,7 +123,7 @@ bool ParseFromIstream(istream* input);: parses a message from the given C++ istr
 
 ### 写
 
-``` c++
+```cpp
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -221,7 +221,7 @@ int main(int argc, char* argv[]) {
 
 ### 读
 
-``` c++
+```cpp
 #include <iostream>
 #include <fstream>
 #include <string>

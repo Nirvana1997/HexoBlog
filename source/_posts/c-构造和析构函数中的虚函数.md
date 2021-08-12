@@ -12,7 +12,7 @@ date: 2021-07-17 19:29:05
 
 ## 1.问题代码
 
-``` c++
+```cpp
 class Base
 {
     public:
@@ -61,7 +61,7 @@ libc++abi.dylib: Pure virtual function called!
 
 ##2.原因
 
-``` c++
+```cpp
 class Base
 {
     public:

@@ -20,13 +20,13 @@ date: 2018-10-29 15:14:34
 
 以下是map和unordered_map的模板定义:
 
-```c++
+```cpp
 template<typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
 	 typename _Allocator = std::allocator<std::pair<const _Key, _Tp> > >
 class map
 ```
 
-```c++
+```cpp
 template<typename _Key, typename _Tp,
 	 typename _Hash = std::hash<_Key>,
 	 typename _Pred = std::equal_to<_Key>,
@@ -38,7 +38,7 @@ class unordered_map
 
 ### ii.operator[]
 
-```c++
+```cpp
 template<typename K, typename Pair, typename Hashtable>
     typename map_base<K, Pair, extract1st<Pair>, true, Hashtable>::mapped_type&
     map_base<K, Pair, extract1st<Pair>, true, Hashtable>::
@@ -70,7 +70,7 @@ template<typename K, typename Pair, typename Hashtable>
 
 hashtable一个很重要的影响性能的因素是冲突率,即一个桶中的元素个数.而决定冲突率的则是hash函数和桶的个数,所以hash函数的定义和rehash的时机格外重要.
 
-```c++
+```cpp
 inline std::pair<bool, std::size_t>
   prime_rehash_policy::
   need_rehash(std::size_t n_bkt, std::size_t n_elt, std::size_t n_ins) const
@@ -102,7 +102,7 @@ inline std::pair<bool, std::size_t>
 
 以上是need_rehash函数,判断是否需要rehash的主要是依靠m_max_load_factor,这是元素个数和桶的个数的比例,默认为1.0,若桶数目过少hashtable便会进行一次rehash.
 
-```c++
+```cpp
 template<typename K, typename V,
 	   typename A, typename Ex, typename Eq,
 	   typename H1, typename H2, typename H, typename RP,
@@ -143,7 +143,7 @@ template<typename K, typename V,
 
 接下来是rehash函数,rehash其实就是新开辟一块空间,重进计算hash将元素放入,然后释放原来的空间,很好理解.
 
-```c++
+```cpp
 template<>
     struct Fnv_hash<8>
     {

@@ -15,7 +15,7 @@ date: 2021-07-03 18:18:37
 
 这次遇到的问题是这样的，我们使用这样一段代码测试volatile的特性：
 
-```c++
+```cpp
 #include <pthread.h>
 #include <stdio.h>
 

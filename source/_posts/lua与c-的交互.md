@@ -34,7 +34,7 @@ Library Search Paths设置为项目存放.a库的目录.
 
 ### (ii).代码测试
 
-``` c++
+```cpp
 #include <iostream>
 
 extern "C" {
@@ -78,7 +78,7 @@ end
 
 c++代码:
 
-``` c++
+```cpp
 #include <iostream>
 
 extern "C" {

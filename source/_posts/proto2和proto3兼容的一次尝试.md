@@ -104,7 +104,7 @@ message RedisItemTest
 
 <center>(ii).proto3</center>
 
-```c++
+```cpp
 int main() {
   ifstream file;
   char str[100];
@@ -163,7 +163,7 @@ num: 1 str: "testtest"
 
 最终，采用了以下宏，替换set方法，暂时解决设置默认值占用空间的问题，虽然并不优雅，但是是比较稳的一种解法。
 
-```c++
+```cpp
 #define proto_set(cmd, func, value) \
   {                                 \
     if (cmd.func() != value)        \

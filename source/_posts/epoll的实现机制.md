@@ -22,7 +22,7 @@ select和poll的实现便是遍历去判断每个流是否需要处理.当遇到
 
 select的函数定义是这样子的:
 
-```c++
+```cpp
 int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
 ```
 
@@ -40,7 +40,7 @@ fd_set是作为参数传入的,因为是系统调用,所以在调用select和pol
 
 首先先看下epoll的接口:
 
-```c++
+```cpp
 /** 创建epoll,返回epfd(epoll会占用一个fd) */
 int epoll_create(int size);
 /** 对epoll监控的fds进行操作,op表示操作,有增、删、改的操作,event表示需要监听什么事件,下面具体展开 */

@@ -28,7 +28,7 @@ date: 2018-08-17 21:53:34
 
 为了确认c++中拷贝构造函数的调用时机,执行以下代码:
 
-``` c++
+```cpp
 #include <iostream>
 #include <vector>
 
@@ -124,7 +124,7 @@ returnCopy
 
 ### (i).代码及输出
 
-``` c++
+```cpp
 #include <iostream>
 #include <vector>
 

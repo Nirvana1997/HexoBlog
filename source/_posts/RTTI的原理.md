@@ -15,7 +15,7 @@ date: 2021-08-01 23:51:47
 
 [《Type Conversions》](http://www.cplusplus.com/doc/tutorial/typecasting/)上次研究类型转换时的这篇文档最后还讲到了一个运算符——typeid，使用这个运算符，会返回一个type_info对象的引用，这个对象的结构大致如下：
 
-```c++
+```cpp
 class type_info {
     // data
 public:
@@ -38,7 +38,7 @@ public:
 
 现在有基类SceneEntry和派生类SceneUser
 
-```c++
+```cpp
 class SceneEntry
  {
   public:
@@ -102,7 +102,7 @@ error: 'SceneEntry' is not polymorphic
 
 我们可以通过以下代码来进行试验：
 
-``` C++
+```cpp
 class X
 {
     public:
@@ -138,7 +138,7 @@ class XX : public X
 
 首先定义两个有继承关系的类，并且定义一个虚函数，然后通过以下代码来验证一个对象的布局：
 
-```C++
+```cpp
 typedef void (*FuncPtr)();
 int main()
 {
