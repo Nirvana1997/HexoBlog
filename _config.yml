@@ -80,7 +80,7 @@ theme: shoka # edit for Theme.shoka
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/Nirvana1997/Nirvana1997.github.io.git
+  repo: git@github.com:Nirvana1997/Nirvana1997.github.io.git
 
 live2d:
   enable: true
