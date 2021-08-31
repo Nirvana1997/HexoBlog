@@ -26,3 +26,48 @@ date: 2021-08-27 11:57:21
 
 ## 2.思路
 
+### i.对比首字母相同位置
+
+一开始我想着节省效率，于是想着只记录4中字母的位置，按位置用string的compare函数对比相同首字符后长度为10的串，若和之前某个位置的字符串比对上了，则加入结果中。形成代码大致如下：
+
+``` cpp
+#define SEQ_SIZE 10
+ public:
+  vector<string> findRepeatedDnaSequences(string s)
+  {
+    vector<string> vecResult;
+    if (s.size() <= SEQ_SIZE)
+    {
+      return vecResult;
+    }
+    unordered_map<char, vector<int>> mapChar2Poses;
+    set<string> result;
+
+    for (int pos = 0; pos <= s.size() - SEQ_SIZE; pos++)
+    {
+      bool bFound = false;
+      vector<int>& vecPoses = mapChar2Poses[s[pos]];
+      for (auto prePos : vecPoses)
+      {
+        if (s.compare(prePos, SEQ_SIZE, s, pos, SEQ_SIZE) == 0)
+        {
+          result.emplace(s.substr(prePos, SEQ_SIZE));
+          bFound = true;
+          break;
+        }
+      }
+      if (bFound == false)
+      {
+        vecPoses.emplace_back(pos);
+      }
+    }
+
+    for (auto& str : result)
+    {
+      vecResult.emplace_back(str);
+    }
+    return vecResult;
+  }
+```
+
+结果发现compare
