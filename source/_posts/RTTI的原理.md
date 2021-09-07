@@ -144,14 +144,13 @@ int main()
 {
     XX xx;
     FuncPtr func;
-    char *p = (char*)&xx;// 此处声明为char*的原因主要是为了+sizeof(xx)时加对应n个字节，从而方便获取n个字节后的地址
+    char* p = (char*)&xx;// 此处声明为char*的原因主要是为了+sizeof(xx)时加对应n个字节，从而方便获取n个字节后的地址
     // 获得虚函数表的地址
-    int **vtbl = (int**)*(int**)p;
+    void** vtbl = (void**)*(void**)p; // 此处声明成二级指针也是为了在下面[]运算时按指针的步长取
     // 输出虚函数表的地址，即vptr的值
     cout << vtbl << endl;
     // 获得type_info对象的指针，并调用其name成员函数
-    cout << "\t[-1]: " << (vtbl[-1]) << " -> "
-        << ((type_info*)(vtbl[-1]))->name() << endl;
+    cout << "\t[-1]: " << (vtbl[-1]) << " -> " << ((type_info*)(vtbl[-1]))->name() << endl;
     // 调用第一个virtual函数
     cout << "\t[0]: " << vtbl[0] << " -> ";
     func = (FuncPtr)vtbl[0];
@@ -187,7 +186,17 @@ int main()
 
 ![no_virtual](no_virtual.png)
 
-因为没有虚函数的类就没有多态的性质了，也没有虚函数表，不符合上面的结构。这种类的RTTI信息在编译后便可以确定，指向固定的type_info，因此不需要动态的通过类的虚函数表中的type_info去确定。
+因为没有虚函数的类就没有多态的性质了，也没有虚函数表，不符合上面的结构。
+
+```cpp
+  X* x = new XX();
+  X x2();
+  std::cout << (&(typeid(*x)) == &(typeid(x2))) << std::endl;
+```
+
+当我执行以上代码后，若X有虚函数，则结果是false，若将X的虚函数去掉，结果就变为了true。
+
+由此大致可以推断，这种类的RTTI信息在编译后便可以确定，所以了指向固定的type_info（感觉放在了静态区，不过没查到相关资料，待考证）。因此不需要动态的通过类的虚函数表中的type_info去确定。
 
 ## 4.总结
 
