@@ -47,12 +47,11 @@ ld: symbol(s) not found for architecture x86_64
 
 ## 2.分析原因
 
-让我们回顾一下c++模板的编译过程：
+让我们回顾一下c++大致的编译过程：
 
-1. 。。。
-2. 寻找函数对应的实现，对于模板来说，则是要寻找使用模板的地方，针对不同参数的每个模板创建对应的代码。
+![编译过程](/Users/qianzhihao/HexoBlog/source/_posts/c-模板实现分离/编译过程.png)
 
-所以
+
 
 ### 参考资料
 
