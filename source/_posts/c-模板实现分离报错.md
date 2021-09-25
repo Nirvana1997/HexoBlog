@@ -1,5 +1,5 @@
 ---
-title: c++模板实现分离
+title: c++模板实现分离报错
 category:
   - c++
 tags:
