@@ -27,7 +27,7 @@ typedef struct lua_TValue {
 
 从下图可以看到TValue的结构：
 
-![Lua数据结构](Lua的数据类型实现/Lua数据结构.png)
+![Lua数据结构](Lua数据结构.png)
 
 可以一层一层看下每个成员的作用。
 
@@ -115,29 +115,9 @@ typedef struct GCheader {
 
 * marked：GC相关的标记位。
 
-## 2.Table
+##2.总结
 
-以上一个lua的数据对象的通用部分的结构就完全展开了，不过具体数据部分各不相同，这次主要研究下lua中比较特殊的Table。
-
-```cpp
-typedef struct Table {
-  CommonHeader;
-  lu_byte flags;  /* 1<<p means tagmethod(p) is not present */
-  lu_byte lsizenode;  /* log2 of size of 'node' array */
-  unsigned int alimit;  /* "limit" of 'array' array */
-  TValue *array;  /* array part */
-  Node *node;
-  Node *lastfree;  /* any free position is before this position */
-  struct Table *metatable;
-  GCObject *gclist;
-} Table;
-```
-
-
-
-## 3.总结
-
-...。最后还有个新了解到的，关于为什么很多C和C++的库中定义struct的时候会在外面包一层typedef。这是因为C中单单定义struct的话，之后声明该类会需要这样用：
+Lua语法十分简洁，且是速度最快的脚本语言之一，实现用的还是相当难掌控的C，其设计还是有很多精巧之处的，接下来还会接着研究。最后还有个新了解到的，关于为什么很多C和C++的库中定义struct的时候会在外面包一层typedef。这是因为C中单单定义struct的话，之后声明该类会需要这样用：
 
 ```cpp
 struct A{
@@ -153,3 +133,4 @@ struct A a;
 
 * 《Lua设计与实现》——codedump
 
+* [lua 5.3.5 TValue::tt_和GCObject::tt之间的爱恨纠葛](https://blog.csdn.net/weixin_42973416/article/details/103881589)
