@@ -82,7 +82,7 @@ FBString就功能上来说和string是一致的，但是在效率方面有一定
 2. 在对大字符串使用COW方式存储时，对于引用计数线程安全。
 3. 使用malloc代替allocators。
 4. 对 Jemalloc 友好。如果检测到使用 jemalloc，那么将使用 jemalloc 的一些非标准扩展接口来提高性能。
-5. `find()`使用简化版的**[Boyer-Moore algorithm](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm)**。在查找成功的情况下，相对于`string::find()`有 30 倍的性能提升。在查找失败的情况下也有 1.5 倍的性能提升。
+5. `find()`使用简化版的**[Boyer-Moore algorithm](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm)**。在查找成功的情况下，相对于`string::find()`大致有 30 倍的性能提升。在查找失败的情况下也有 1.5 倍的性能提升。
 6. 可以与 std::string 互相转换。
 
 ## 3.实现细节
@@ -105,11 +105,22 @@ union {
 };
 ```
 
-FBString使用了一个union去存储短字符串的数据或是中长字符串的指针、长度、容量，这3者在64位系统中正好占用24字节，因此短字符串的长度最长就是23字节。
+FBString使用了一个union去存储短字符串的数据或是中长字符串的指针、长度、容量，这3者在64位系统中正好占用24字节，因此短字符串的长度最长就是23字节。可以看到这个union里数组的大小都是通过`sizeof`表达式去计算出来的，这样就保证了不同环境下的稳定性。
 
-为了给字符串分类，FBString定义了
+包括一些常数数据，如大中小字符串长度的分割长度节点，FBString中也是使用表达式去计算出来的，计算结果使用`constexpr`常量，即编译期的常量去保存，这样也避免了代码中出现魔法数字的问题：
 
-fbstring在创建时会根据长度进行分类：
+```cpp
+  constexpr static size_t lastChar = sizeof(MediumLarge) - 1;
+  constexpr static size_t maxSmallSize = lastChar / sizeof(Char);
+  constexpr static size_t maxMediumSize = 254 / sizeof(Char);
+  constexpr static uint8_t categoryExtractMask = kIsLittleEndian ? 0xC0 : 0x3;
+  constexpr static size_t kCategoryShift = (sizeof(size_t) - 1) * 8;
+  constexpr static size_t capacityExtractMask = kIsLittleEndian
+      ? ~(size_t(categoryExtractMask) << kCategoryShift)
+      : 0x0 /* unused */;
+```
+
+然后根据上面计算的节点，FBString在创建时会根据长度进行分类：
 
 ```cpp
   fbstring_core(
@@ -128,11 +139,148 @@ fbstring在创建时会根据长度进行分类：
   }
 ```
 
-然后
+### ii.引用计数线程安全
+
+这个线程安全的实现依赖的是`atomic`：
+
+```cpp
+  struct RefCounted {
+    std::atomic<size_t> refCount_;
+    Char data_[1];
+  };
+```
+
+### iii.jemalloc友好
+
+folly整个库很多地方会使用jemalloc的非标准扩展接口，因此使用时需要特殊处理。
+
+在Malloc.h中有很复杂的对是否使用jemalloc的判断。
+
+``` cpp
+/**
+ * Determine if we are using jemalloc or not.
+ */
+#if defined(FOLLY_ASSUME_NO_JEMALLOC) || FOLLY_SANITIZE
+  inline bool usingJEMalloc() noexcept {
+    return false;
+  }
+#elif defined(USE_JEMALLOC) && !FOLLY_SANITIZE
+  inline bool usingJEMalloc() noexcept {
+    return true;
+  }
+#else
+FOLLY_NOINLINE inline bool usingJEMalloc() noexcept {
+  ...
+}
+```
+
+首先会通过FOLLY_ASSUME_NO_JEMALLOC和USE_JEMALLOC两个选项直接指定是否使用jemalloc。假如这两个选项都没有指定的话，则会经过通过一些检测去判断是否能使用jemalloc。
+
+```cpp
+FOLLY_NOINLINE inline bool usingJEMalloc() noexcept {
+  static const bool result = []() noexcept {
+    // Some platforms (*cough* OSX *cough*) require weak symbol checks to be
+    // in the form if (mallctl != nullptr). Not if (mallctl) or if (!mallctl)
+    // (!!). http://goo.gl/xpmctm
+    if (mallocx == nullptr || rallocx == nullptr || xallocx == nullptr ||
+        sallocx == nullptr || dallocx == nullptr || sdallocx == nullptr ||
+        nallocx == nullptr || mallctl == nullptr ||
+        mallctlnametomib == nullptr || mallctlbymib == nullptr) {
+      return false;
+    }
+    ...
+  }();
+  return result;
+}
+```
+
+if条件语句中的变量都是函数指针，可以看到这个函数主要是判断一系列函数指针是否有值。剩下的看起来应该是一些特殊情况的处理。
+
+而这些函数指针在检测到引用了jemalloc的情况下是非空的。folly使用CMake的CHECK_INCLUDE_FILE_CXX去判断是否使用了jemalloc：
+
+```cmake
+if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+  CHECK_INCLUDE_FILE_CXX(malloc_np.h FOLLY_USE_JEMALLOC)
+else()
+  CHECK_INCLUDE_FILE_CXX(jemalloc/jemalloc.h FOLLY_USE_JEMALLOC)
+endif(
+```
+
+### iv.find函数的优化
+
+FBString对`find`函数的优化主要是使用了Boyer-Moore算法的思路（[字符串匹配的Boyer-Moore算法](https://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html)）。不过原版比较复杂，适合去搜索长字符串，常用于网页、文本的搜索，对于目标字符串较短的情况反而有点得不偿失，因此FBString的`find`是它的简化版：
+
+```cpp
+template <typename E, class T, class A, class S>
+inline typename basic_fbstring<E, T, A, S>::size_type
+basic_fbstring<E, T, A, S>::find(
+    const value_type* needle,
+    const size_type pos,
+    const size_type nsize) const {
+    ...
+    // 前面逐位对比，直至i位置开始的字符串最后一位和needle最后一位相同
+    for (size_t j = 0;;) {
+      assert(j < nsize);
+      if (i[j] != needle[j]) {
+        // 然后这里会计算需要跳过的位数，不过没有Boyer-Moore那样对好后缀进行判断，仅是对最后一位字符找needle中相同的一位对齐
+        if (skip == 0) {
+          skip = 1;
+          while (skip <= nsize_1 && needle[nsize_1 - skip] != lastNeedle) {
+            ++skip;
+          }
+        }
+        i += skip;
+        break;
+      }
+      if (++j == nsize) {
+        // 找到目标
+        return i - haystack;
+      }
+    }
+}
+```
+
+### v.与std::string的兼容
+
+c++中的`std::string`其实是` basic_string<char>`的别名，FBString为了兼容它，实现了一系列重载函数：
+
+```cpp
+  // std::string转FBString
+  template <typename A2>
+  basic_fbstring& operator=(const std::basic_string<E, T, A2>& rhs) {
+    return assign(rhs.data(), rhs.size());
+  }
+
+  // FBString转std::string
+  std::basic_string<E, T, A> toStdString() const {
+    return std::basic_string<E, T, A>(data(), size());
+  }
+
+  // 比较函数 
+  template <typename E, class T, class A, class S, class A2>
+  inline bool operator==(
+      const basic_fbstring<E, T, A, S>& lhs,
+      const std::basic_string<E, T, A2>& rhs) {
+    return lhs.compare(0, lhs.size(), rhs.data(), rhs.size()) == 0;
+  }
+
+  ......
+```
+
+而且`std::string`的常用函数在FBString基本是以一样的形式去定义的，如`size()`、`capacity()`、`empty()`、`begin()`、`end()`等。而且看注释和记录，FBString在string的函数更新后也会相应地更新去兼容。
+
+这些函数保证了和原有的标准库的std::string的兼容性，在使用时完全可以当成std::string去用，甚至很多时候直接可以把旧代码的一个std::string替换成fbstring，它们之间的比较和相互转换都是一个表达式就能完成的。当要研发一个旧系统的新版本时，兼容性是一个很重要但也很难完美满足的一个方面，FBString的兼容性真的做的很好（不过工作量也确实挺大的）。
 
 ## 4.总结
 
-FBString这么整体看下来，可以看得出来还是有很多细节的。感觉看下来这个库的代码风格很严谨，几乎所有复杂接口都加上了assert验证正确性，很多地方也对大小端进行了区分，做到了尽可能高的可移植性。而且代码对内存的使用十分严格，能用一个uint8解决的问题绝对不会不用uint32。
+FBString这么整体看下来，可以看得出来还是有很多细节的。感觉看下来这个库的代码风格整体很严谨，大致有这些特点：
+
+1. 几乎所有复杂接口都加上了assert验证正确性，保证可靠性。
+2. 很多地方也对大小端进行了区分，常量尽可能用系统变量计算，长度均使用size_type，尽可能的保证了库的可移植性。
+3. 代码对内存的使用十分严格，能用一个uint8解决的问题绝对不会不用uint32。
+4. 使用了非常多模板定义的类和函数，提高可复用性。（不过感觉有点过多了，不知道是不是真的都需要抽出来，可能有点过度设计，用的多的话也可能导致编译过慢，个人理解）
+
+folly确实有很多可以借鉴的地方，接下来继续研究ヾ(◍°∇°◍)ﾉﾞ！
 
 ### 参考资料
 
