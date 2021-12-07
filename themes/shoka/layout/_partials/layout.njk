@@ -9,7 +9,7 @@
   {{ partial('_partials/head/head_unique.njk') }}
   {# 换种标题方式，原来的用“=”拼接感觉有点奇怪 #}
   {# <title>{% block title %}{% endblock %}{{ alternate + " = " if alternate }}{{ title }}{{ " = "+subtitle if subtitle }}</title> #}
-  <title>{% block title %}{% endblock %}{{ alternate if alternate }}</title>
+  <title>{% block title %}{% endblock %}{{ alternate + "——" if alternate }}{{ title }}</title>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
   <div id="loading">
