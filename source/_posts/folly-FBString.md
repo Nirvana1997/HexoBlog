@@ -1,5 +1,5 @@
 ---
-title: 'folly:FBString'
+title: 'folly-FBString'
 category:
   - c++
 tags:
@@ -20,7 +20,7 @@ date: 2021-10-28 23:19:55
 
 对于这些数据的维护方式，主要的有以下几种方式：
 
-###i.eager copy：
+### i.eager copy：
 
 eager copy是最简单也是最暴力的字符串数据维护方式。当一个字符串进行拷贝操作时，直接将数据拷贝一份，将数据指针指向拷贝的对象。
 
@@ -333,15 +333,11 @@ folly确实有很多可以借鉴的地方，接下来继续研究ヾ(◍°∇°�
 
 ### 参考资料
 
+* [facebook/folly](https://github.com/facebook/folly)
 * [C++ folly库解读](https://zhuanlan.zhihu.com/p/348614098)
-
 * [GNU C++ 标准库中 string 实现简介](https://zhuanlan.zhihu.com/p/344859791)
-
 * [Legality of COW std::string implementation in C++11](https://stackoverflow.com/questions/12199710/legality-of-cow-stdstring-implementation-in-c11)
-
 * [c++再探string之eager-copy、COW和SSO方案](https://www.cnblogs.com/cthon/p/9181979.html)
-
 * [一篇文章搞懂STL中的空间配置器allocator](https://www.coonote.com/cplusplus-note/space-allocator.html)
-
 * [分配器——allocators](https://www.cnblogs.com/area-h-p/p/12020879.html)
 
