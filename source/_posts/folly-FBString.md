@@ -243,9 +243,24 @@ FOLLY_NOINLINE inline bool usingJEMalloc() noexcept {
 }
 ```
 
-if条件语句中的变量都是函数指针，可以看到这个函数主要是判断一系列函数指针是否有值。剩下的看起来应该是一些特殊情况的处理。
+if条件语句中的变量都是函数指针，这些函数是jemalloc的函数，可以看到这个函数主要是判断一系列函数指针是否有值。这些函数都是jemalloc中的函数，为了防止未引用时报错，folly在不使用jemalloc时将这些函数定义为空：
 
-而这些函数指针在检测到引用了jemalloc的情况下是非空的。folly使用CMake的CHECK_INCLUDE_FILE_CXX去判断是否使用了jemalloc：
+```cpp
+#if (!defined(USE_JEMALLOC) && !defined(FOLLY_USE_JEMALLOC)) || FOLLY_SANITIZE
+void* (*mallocx)(size_t, int) = nullptr;
+void* (*rallocx)(void*, size_t, int) = nullptr;
+size_t (*xallocx)(void*, size_t, size_t, int) = nullptr;
+size_t (*sallocx)(const void*, int) = nullptr;
+void (*dallocx)(void*, int) = nullptr;
+void (*sdallocx)(void*, size_t, int) = nullptr;
+size_t (*nallocx)(size_t, int) = nullptr;
+int (*mallctl)(const char*, void*, size_t*, void*, size_t) = nullptr;
+int (*mallctlnametomib)(const char*, size_t*, size_t*) = nullptr;
+int (*mallctlbymib)(const size_t*, size_t, void*, size_t*, void*, size_t) =
+    nullptr;
+```
+
+而这些函数指针在检测到引用了jemalloc的情况下是非空的。folly使用CMake的CHECK_INCLUDE_FILE_CXX去判断是否引用了jemalloc：
 
 ```cmake
 if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
@@ -254,6 +269,10 @@ else()
   CHECK_INCLUDE_FILE_CXX(jemalloc/jemalloc.h FOLLY_USE_JEMALLOC)
 endif(
 ```
+
+当FOLLY_USE_JEMALLOC为0时，会将之前的函数指针都置为空。
+
+剩下的看起来应该是一些特殊情况的处理。
 
 ### iv.find函数的优化
 
