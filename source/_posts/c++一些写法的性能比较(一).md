@@ -12,41 +12,47 @@ date: 2022-02-20 15:04:20
 
 ### 1.for循环是否判空
 
-在遍历一个可能是空的set时，我一直时习惯不判空的，不过突然有同事提出是否判空会影响性能，于是这次测试了下：
+在遍历一个可能是空的set时，我一直时习惯不判空的，不过突然有同事说不判空好像会影响性能，于是这次写了3个函数测试了下：
 
 ```c++
-  set<int> setNum;
-  // empty
+ void checkEmpty(const set<int>& setNum)
+{
   for (int i = 0; i < X; i++)
   {
     if (setNum.empty() == false)
     {
       for (int j : setNum)
       {
+        cout << j << endl;
       }
     }
   }
+}
 
-  // no_empty,foreach
+void noCheckEmpty(const set<int>& setNum)
+{
   for (int i = 0; i < X; i++)
   {
     for (int j : setNum)
     {
-      test++;
+      cout << j << endl;
     }
   }
+}
 
-  // no_empty,iterator
+void useIterator(const set<int>& setNum)
+{
   for (int i = 0; i < X; i++)
   {
     for (auto it = setNum.begin(); it != setNum.end(); it++)
     {
-      test++;
+      cout << *it << endl;
     }
   }
+}
 ```
 
-以O0的方式运行，最终结果如下：
+以O0的方式每个函数运行10万次，最终结果如下：
 
 ```bash
 empty:8.546ms
@@ -59,8 +65,8 @@ no_empty,iterator:46.798ms
 但是在O2的方式下运行，结果如下：
 
 ```c++
-empty:1.474ms
-no_empty,foreach:1.063ms
-no_empty,iterator:1.455ms
+empty:1.477ms
+no_empty,foreach:1.543ms
+no_empty,iterator:1.521ms
 ```
 
