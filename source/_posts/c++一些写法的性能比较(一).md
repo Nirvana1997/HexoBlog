@@ -1,9 +1,9 @@
 ---
 title: c++一些写法的性能比较(一)
 category:
-  - category
+  - c++
 tags:
-  - tag
+  - c++
 date: 2022-02-20 15:04:20
 ---
 
@@ -15,7 +15,13 @@ date: 2022-02-20 15:04:20
 在遍历一个可能是空的set时，我一直时习惯不判空的，不过突然有同事说不判空好像会影响性能，于是这次写了3个函数测试了下：
 
 ```c++
- void checkEmpty(const set<int>& setNum)
+int global = 0;
+void funcX()
+{
+  global++;
+}
+
+void checkEmpty(const set<int>& setNum)
 {
   for (int i = 0; i < X; i++)
   {
@@ -23,7 +29,7 @@ date: 2022-02-20 15:04:20
     {
       for (int j : setNum)
       {
-        cout << j << endl;
+        funcX();
       }
     }
   }
@@ -35,7 +41,7 @@ void noCheckEmpty(const set<int>& setNum)
   {
     for (int j : setNum)
     {
-      cout << j << endl;
+      funcX();
     }
   }
 }
@@ -46,7 +52,7 @@ void useIterator(const set<int>& setNum)
   {
     for (auto it = setNum.begin(); it != setNum.end(); it++)
     {
-      cout << *it << endl;
+      funcX();
     }
   }
 }
@@ -65,8 +71,18 @@ no_empty,iterator:46.798ms
 但是在O2的方式下运行，结果如下：
 
 ```c++
-empty:1.477ms
-no_empty,foreach:1.543ms
-no_empty,iterator:1.521ms
+empty:0.716ms
+no_empty,foreach:1.008ms
+no_empty,iterator:1.066ms
 ```
+
+当集合有1个元素时，结果如下：
+
+```cpp
+empty:2.538ms
+no_empty,foreach:2.353ms
+no_empty,iterator:2.36ms
+```
+
+可以看到在O2的编译方式下，是否判空对效率影响不大，在为空时判空更快，在非空时不判空更快，因此是否判空没有太大所谓。不过平时大多数情况下，集合并不为空，所以基本不判空的效率会好一点，写起来额更简洁一点。
 
