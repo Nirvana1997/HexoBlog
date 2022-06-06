@@ -39,7 +39,7 @@ folly的内容主要包含了优化的stl容器、一些多线程相关的组件
 >
 > StlAllocator.h ---- STL分配器，包装简单的分配/取消分配接口。貌似为了低版本gcc。
 >
-> Traits.h ---- 类型特性。用于判断类型是否可直接内存拷贝(可重定位的对象)。C++假定所有的对象都是“non-relocatable values”(需要调用构造函数而不能直接拷贝内存数据)。实际中，很多C++对象可通过直接拷贝内存数据完成对象"再造"！(Relocatable object/type -- 可重定位的对象/类型)。Traits.h的核心就是提供"可重定位的类型"编译时判断工具。FBvector的核心优化之一：利用memcpy/memmove来处理"可重定位的类型"！
+> Traits.h ---- 类型特性。用于判断类型是否可直接内存拷贝(可重定位的对象)。C\+\+假定所有的对象都是“non-relocatable values”(需要调用构造函数而不能直接拷贝内存数据)。实际中，很多C\+\+对象可通过直接拷贝内存数据完成对象"再造"！(Relocatable object/type -- 可重定位的对象/类型)。Traits.h的核心就是提供"可重定位的类型"编译时判断工具。FBvector的核心优化之一：利用memcpy/memmove来处理"可重定位的类型"！
 >
 > ### ii.C++功能增强和扩展
 >
