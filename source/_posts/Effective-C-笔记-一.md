@@ -54,11 +54,11 @@ int main()
 
 这段代码不管使用const还是#define，在c\+\+11和c\+\+98标准下，编译出的汇编是完全一致的：
 
-![constDefineCompare](/Users/qianzhihao/HexoBlog/source/_posts/Effective-C-笔记-一/constDefineCompare.png)
+![constDefineCompare](constDefineCompare.png)
 
 编译出来的可执行文件大小也完全一致：
 
-![constTest](/Users/qianzhihao/HexoBlog/source/_posts/Effective-C-笔记-一/constTest.png)
+![constTest](constTest.png)
 
 所以我猜这个弊端可能已经被编译器优化了。
 
