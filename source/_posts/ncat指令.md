@@ -1,5 +1,5 @@
 ---
-tile: ncat指令
+title: ncat指令
 category:
   - linux
 tags:

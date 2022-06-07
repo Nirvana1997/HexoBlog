@@ -98,7 +98,7 @@ error: 'SceneEntry' is not polymorphic
 
 ## 3.RTTI的原理
 
-所以最终，要研究typeid和dynamic_cast这两个运算符的原理，本质其实是研究RTTI的原理，这次主要通过这篇博文[《C++对象模型之RTTI的实现原理》](https://blog.csdn.net/ljianhui/article/details/46487951)来研究，还是增添了不少对c++内存布局的理解的。
+所以最终，要研究typeid和dynamic_cast这两个运算符的原理，本质其实是研究RTTI的原理，这次主要通过这篇博文[《C\+\+对象模型之RTTI的实现原理》](https://blog.csdn.net/ljianhui/article/details/46487951)来研究，还是增添了不少对c\+\+内存布局的理解的。
 
 我们可以通过以下代码来进行试验：
 
