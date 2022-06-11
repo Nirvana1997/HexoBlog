@@ -95,3 +95,59 @@ Widget& operator=(const Widget& rhs)
 
 这点可以在同时赋相同值时渐变写法，而且很多内置类型和标准程序库中是遵循这个规则的，可以统一写法。不过除此之外没有其他好处，因此作者也说这只是个协议，并无强制性。
 
+## 条款11：在operator=中处理“自我赋值”
+
+“自我赋值”指的是将同一个对象赋值给自己。这点其实不仅在operator=中需要处理，任何操作两个可能为同一对象的时候，都需要考虑执行是否正确，`operator=`中的“自我赋值”只是比较典型。
+
+其实使用对象来管理资源的话并不需要太关心这点，这点在自己需要管理资源时才需要特别注意，比如：
+
+```cpp
+class Bitmap {...}; // 位图对象
+class Widget {
+  ...
+private:
+  Bitmap* pb = nullptr; // 指针，指向一个从heap分配而得的对象
+};
+```
+
+上面是一个以用来保存一个位图指针的类Widget，最简单的`operator=`可能是这么写的：
+
+```cpp
+Widget& operator=(const Widget& rhs)
+{
+  delete pb;
+  pb = new Bitmap(*rhs);
+}
+```
+
+这样的写法在rhs的pb和this的pb指向相同的对象时，就会把指向的对象释放掉而导致问题。
+
+书中针对operator=中的“自我赋值”的处理给出了一种方法——++copy and swap++：
+
+```cpp
+class Widget {
+  ...
+  void swap(Widget& rhs); // 交换*this和rhs的数据
+  ...
+};
+Widget& Widget::operator=(const Widget& rhs){
+  Widget temp(rhs); // 为rhs数据拷贝一份临时副本
+  swap(temp); // 将*this和副本的数据交换
+  return *this;
+}
+```
+
+（swap实现比较复杂，作者在条款29中有详细说明，我这里也不展开了，总之swap实现了数据交换，且避免了内存泄漏、处理了对象创建抛出异常的情况。）
+
+使用copy and swap的方法可以保证当rhs和this的pb指向相同对象时，不会将指向的对象释放掉，并且“异常安全”，是处理这类问题比较好的写法。
+
+## 条款12：复制对象时勿忘其每一个成分
+
+当你使用编译器自动补充的Copy构造函数和operator=函数时会自动完成这点。但当你自己实现这两个复制相关的函数时需要注意：
+
+* 复制相关的函数应确保复制++对象内的所有成员以及所有base class的成分++。
+* 虽然两者代码成分类似，但不要尝试通过调用另一方来实现自己，应该实现另一个类似`init`这样的初始化函数来供两者调用，从而减少代码重复。
+
+### 参考资料
+
+* 《Effective C\+\+》—— Scott Meyers

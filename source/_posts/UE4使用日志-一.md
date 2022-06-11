@@ -64,7 +64,7 @@ ADynamicEntry::ADynamicEntry()
 
 ## 2.BlueprintImplementableEvent
 
-为了实现血条变化时的缓冲效果，需要用到ue提供的TimeLineComponent，实现起来会比较方便。但我查阅了TimeLineComponent的C++文档，感觉用C++去使用挺麻烦的，所以我使用了`BlueprintImplementableEvent`：
+为了实现血条变化时的缓冲效果，需要用到ue提供的TimeLineComponent，实现起来会比较方便。但我查阅了TimeLineComponent的C\+\+文档，感觉用C\+\+去使用挺麻烦的，所以我使用了`BlueprintImplementableEvent`：
 
 ```cpp
 	// 血条UI缓冲更新
@@ -78,11 +78,11 @@ ADynamicEntry::ADynamicEntry()
 
 我代码中有两个C++类，DynamicEntry和MyPlayer，其中MyPlayer继承于MyPlayer，同时有BP_DynamicEntry和BP_MyPlayer，分别继承自DynamicEntry和MyPlayer。
 
-我一开始以为，`BlueprintImplementableEvent`的实现就是最终编译链接的时候链接到蓝图中对应函数实现翻译成的代码。因此我认为在BP_DynamicEntry中实现HpBarUpdate后，BP_MyPlayer相当于可以直接调用父类的HpBarUpdate。不过现在写出来以后就能发现这个想法的不合理，BluePrint类本身就是“继承”自C++类，这两个本身就是子类父类的关系，怎么可能蓝图类里可以直接完成父类的方法的实现呢。
+我一开始以为，`BlueprintImplementableEvent`的实现就是最终编译链接的时候链接到蓝图中对应函数实现翻译成的代码。因此我认为在BP_DynamicEntry中实现HpBarUpdate后，BP_MyPlayer相当于可以直接调用父类的HpBarUpdate。不过现在写出来以后就能发现这个想法的不合理，BluePrint类本身就是“继承”自C\+\+类，这两个本身就是子类父类的关系，怎么可能蓝图类里可以直接完成父类的方法的实现呢。
 
 所以按我刚才的方法，仅在BP_DynamicEntry这个类中去提供HpBarUpdate的话，BP_MyPlayer中是无效的，需要封装一个函数让两边都调用，或是分别实现一下。
 
-因此`BlueprintImplementableEvent`的实现应该说类似在C++类中将一个函数改为虚函数，默认提供空实现，然后蓝图类中实现就相当于重载父类的虚函数。
+因此`BlueprintImplementableEvent`的实现应该说类似在C\+\+类中将一个函数改为虚函数，默认提供空实现，然后蓝图类中实现就相当于重载父类的虚函数。
 
 ## 3.总结
 
